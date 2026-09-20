@@ -4,7 +4,7 @@
  --pink:#ff9edb;--gold:#ffd98a;--text:#fff8ff;--muted:#d8c8df;
  --glass:rgba(255,255,255,.075);--border:rgba(255,255,255,.16);
 }
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;scroll-behavior:auto;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 body{overflow-x:hidden;overscroll-behavior-x:none}
 button,input{font:inherit}
 button{cursor:pointer}
@@ -162,3 +162,194 @@ button{cursor:pointer}
 @keyframes giftRipple{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}35%{opacity:.62}100%{opacity:0;transform:translate(-50%,-50%) scale(1.15)}}
 @media(max-width:600px){#giftFx{border-radius:26px}.gift-fx-particle{font-size:16px}}
 @media(prefers-reduced-motion:reduce){.gift-fx-particle,.gift-fx-special{animation:none!important;opacity:.12}}
+
+
+
+/* SCROLL PERFORMANCE ONLY — visual effects intentionally unchanged. */
+html,body{scroll-behavior:auto;-webkit-overflow-scrolling:touch;}
+body{touch-action:pan-y;}
+.gift{content-visibility:auto;contain-intrinsic-size:88px;}
+
+/* ===============================
+   KAASHI FIRST PAGE — IMAGE MATCH
+   The supplied artwork is used as the exact visual reference.
+   The two invisible hotspots keep the page interactive.
+   =============================== */
+#welcome.image-welcome{
+  min-height:100svh;
+  height:100svh;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:#09010f;
+}
+.welcome-art{
+  position:relative;
+  width:min(100vw, 68vh);
+  height:min(150vw, 100vh);
+  aspect-ratio:2/3;
+  flex:0 0 auto;
+  overflow:hidden;
+  isolation:isolate;
+}
+.welcome-art::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(to bottom,rgba(10,1,18,.02),rgba(10,1,18,.08));
+}
+.welcome-art img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.door-hotspot,
+.enter-hotspot{
+  position:absolute;
+  z-index:5;
+  appearance:none;
+  border:0;
+  background:transparent;
+  padding:0;
+  margin:0;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+.door-hotspot{
+  left:29.5%;
+  top:18.0%;
+  width:41.5%;
+  height:41.5%;
+}
+.enter-hotspot{
+  left:28.5%;
+  top:82.0%;
+  width:43.5%;
+  height:9.5%;
+}
+.door-hotspot:focus-visible,
+.enter-hotspot:focus-visible{
+  outline:2px solid rgba(255,220,255,.85);
+  outline-offset:5px;
+  border-radius:30px;
+}
+/* Keep the first page artwork crisp and stable on touch devices. */
+@media (pointer:coarse){
+  #welcome.image-welcome{transform:translateZ(0);backface-visibility:hidden;}
+  .welcome-art{will-change:auto;}
+}
+@media (min-width:900px){
+  .welcome-art{width:min(68vh,820px);height:min(100vh,1230px);}
+}
+@media (max-aspect-ratio: 9/16){
+  .welcome-art{width:100vw;height:150vw;}
+}
+
+/* =========================================================
+   KAASHI FIRST PAGE — PURE HTML/CSS RECREATION
+   No background/photo artwork is used here.
+   ========================================================= */
+#welcome.css-welcome{
+  min-height:100svh;
+  height:100svh;
+  width:100%;
+  padding:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 52%,rgba(125,45,180,.25),transparent 30%),
+    radial-gradient(circle at 50% 90%,rgba(235,93,174,.12),transparent 32%),
+    linear-gradient(180deg,#07000f 0%,#10001e 52%,#1b0428 100%);
+}
+.welcome-scene{
+  position:relative;
+  width:min(100vw,68vh);
+  height:min(150vw,100vh);
+  aspect-ratio:2/3;
+  overflow:hidden;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 84% 13%,rgba(194,116,255,.24),transparent 11%),
+    radial-gradient(circle at 50% 63%,rgba(148,53,196,.17),transparent 36%),
+    linear-gradient(180deg,#080011 0%,#12021f 55%,#21052e 100%);
+}
+.welcome-scene:before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle at 8% 9%,#fff 0 1px,transparent 1.7px),
+    radial-gradient(circle at 20% 18%,#e9c7ff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 31% 7%,#fff 0 1px,transparent 1.7px),
+    radial-gradient(circle at 44% 16%,#fff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 58% 8%,#ffd68e 0 1.3px,transparent 2px),
+    radial-gradient(circle at 68% 23%,#fff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 78% 8%,#fff 0 1px,transparent 1.7px),
+    radial-gradient(circle at 91% 18%,#f6d7ff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 13% 31%,#ffd68e 0 1px,transparent 1.8px),
+    radial-gradient(circle at 26% 36%,#fff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 39% 28%,#e9c7ff 0 1px,transparent 1.7px),
+    radial-gradient(circle at 54% 34%,#fff 0 1px,transparent 1.8px),
+    radial-gradient(circle at 72% 39%,#fff 0 1px,transparent 1.7px),
+    radial-gradient(circle at 88% 32%,#ffd68e 0 1px,transparent 1.8px);
+  animation:welcomeStars 6s ease-in-out infinite alternate;
+}
+@keyframes welcomeStars{to{opacity:.72;transform:scale(1.012)}}
+.welcome-sky-glow{position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 50% 30%,rgba(195,93,255,.13),transparent 38%)}
+.welcome-moon{position:absolute;z-index:1;right:9%;top:7%;width:82px;height:82px;border-radius:50%;background:radial-gradient(circle at 32% 28%,#fff7ff 0 8%,#ead2ff 30%,#bd86ef 62%,#7f43bb 100%);box-shadow:0 0 28px rgba(216,162,255,.7),0 0 75px rgba(166,88,238,.3);overflow:hidden}
+.welcome-moon:before,.welcome-moon:after,.welcome-moon span{content:"";position:absolute;border-radius:50%;background:rgba(133,76,174,.15)}
+.welcome-moon:before{width:17px;height:11px;left:15px;top:28px}.welcome-moon:after{width:12px;height:15px;right:16px;top:14px}.welcome-moon span{width:20px;height:9px;right:20px;bottom:22px}
+.welcome-cloud{position:absolute;z-index:1;width:58%;height:20%;bottom:24%;border-radius:50%;filter:blur(15px);opacity:.42;background:radial-gradient(ellipse,#64258d 0 35%,transparent 72%)}
+.cloud-left{left:-24%;transform:rotate(-10deg)}.cloud-right{right:-25%;transform:rotate(9deg)}
+.welcome-shooting-star{position:absolute;z-index:2;width:54px;height:1px;background:linear-gradient(90deg,transparent,#fff,transparent);box-shadow:0 0 7px #fff;transform:rotate(-31deg);opacity:.8}
+.ss1{left:22%;top:9%}.ss2{right:9%;top:27%;width:40px;transform:rotate(-35deg);opacity:.5}
+.welcome-door-area{position:absolute;z-index:4;left:50%;top:19%;width:60%;height:48%;transform:translateX(-50%)}
+.door-halo{position:absolute;inset:-9%;border-radius:45% 45% 15% 15%;background:radial-gradient(ellipse,rgba(198,94,255,.38),transparent 67%);filter:blur(11px);animation:doorHalo 3.2s ease-in-out infinite}
+@keyframes doorHalo{50%{transform:scale(1.045);opacity:.75}}
+.door-hotspot{position:absolute;z-index:5;left:50%;top:3%;width:70%;height:96%;transform:translateX(-50%);padding:0;border:0;background:none;cursor:pointer;touch-action:manipulation;filter:drop-shadow(0 0 13px rgba(201,109,255,.5));transition:transform .35s ease,opacity .35s ease}
+.door-frame{position:absolute;inset:0;border:2px solid rgba(224,159,255,.86);border-radius:2px 2px 0 0;background:linear-gradient(145deg,#51206d,#1d092c 58%,#54206c);box-shadow:inset 0 0 0 7px rgba(255,255,255,.035),inset 0 0 30px rgba(218,125,255,.16),0 0 28px rgba(187,92,255,.35)}
+.door-frame:before{content:"";position:absolute;inset:15% 10% 5%;border:1px solid rgba(238,193,255,.55);border-radius:50% 50% 0 0;box-shadow:0 0 15px rgba(214,139,255,.12)}
+.door-inner-glow{position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 87%,rgba(255,218,149,.55) 92%,transparent 100%);animation:doorLight 2.4s ease-in-out infinite}
+@keyframes doorLight{50%{opacity:.55}}
+.door-arch{position:absolute;left:18%;right:18%;top:12%;height:31%;border:1px solid rgba(233,179,255,.45);border-bottom:0;border-radius:50% 50% 0 0}
+.door-ornament{position:absolute;left:50%;top:35%;transform:translateX(-50%);font-size:28px;color:#e8aaff;text-shadow:0 0 13px #c875ff}
+.door-knob{position:absolute;right:12%;top:57%;width:15px;height:15px;border-radius:50%;background:#ffd789;box-shadow:0 0 15px #ffd789}
+.door-light{position:absolute;right:-3px;top:6%;bottom:0;width:4px;background:linear-gradient(180deg,#ffedb1,#ffd98a 60%,#fff0b9);box-shadow:0 0 14px #ffd98a}
+.vine{position:absolute;z-index:7;pointer-events:none;color:#f6a92e;text-shadow:0 0 10px rgba(255,192,76,.35)}
+.vine span{position:absolute;font-size:39px;filter:drop-shadow(0 0 7px rgba(255,194,70,.3));animation:flowerFloat 4s ease-in-out infinite}
+.vine i,.vine b{position:absolute;display:block;width:3px;border-radius:5px;background:linear-gradient(#477b31,#182b1c);transform-origin:top}
+.vine i{height:110px}.vine b{height:55px;transform:rotate(32deg);opacity:.8}
+.vine-left{left:2%;bottom:0;width:65px;height:47%}.vine-left span{left:0;bottom:40%}.vine-left i{left:28px;bottom:0}.vine-left b{left:30px;bottom:34%}
+.vine-right{right:-2%;top:0;width:70px;height:55%}.vine-right span{right:0;top:1%}.vine-right i{right:29px;top:15px}.vine-right b{right:29px;top:33%;transform:rotate(-30deg)}
+@keyframes flowerFloat{50%{transform:translateY(-5px) rotate(2deg)}}
+.butterfly{position:absolute;z-index:8;color:#ffd77c;font-size:24px;text-shadow:0 0 12px #ffd77c;animation:butterflyFloat 3.8s ease-in-out infinite}
+.butterfly-left{left:-8%;top:56%}.butterfly-right{right:-10%;top:31%;animation-delay:1s}
+@keyframes butterflyFloat{50%{transform:translate(4px,-8px) rotate(12deg);opacity:.65}}
+.welcome-reflection{position:absolute;z-index:1;left:17%;right:17%;top:62%;height:18%;background:linear-gradient(180deg,rgba(255,210,255,.12),transparent);transform:perspective(250px) rotateX(58deg);filter:blur(5px);opacity:.55}
+.welcome-foreground-flower{position:absolute;z-index:2;bottom:-3%;font-size:92px;filter:blur(.2px) drop-shadow(0 0 14px rgba(255,177,67,.22));opacity:.72;transform-origin:bottom center;animation:foregroundSway 5s ease-in-out infinite}
+.ff-left{left:-9%;transform:rotate(-15deg)}.ff-right{right:-10%;font-size:105px;transform:rotate(16deg);animation-delay:1.2s}
+@keyframes foregroundSway{50%{transform:rotate(-11deg) translateY(-4px)}}
+.ff-right{animation-name:foregroundSwayR}@keyframes foregroundSwayR{50%{transform:rotate(12deg) translateY(-4px)}}
+.css-copy{position:absolute;z-index:10;left:5%;right:5%;top:67%;text-align:center;text-shadow:0 2px 16px rgba(0,0,0,.55)}
+.css-copy h1{margin:0;font-family:"Cormorant Garamond",serif;font-size:clamp(42px,8.8vw,68px);font-style:italic;font-weight:600;line-height:1;color:#f8eaff;letter-spacing:.4px}
+.css-copy h1 span{font-style:normal;text-shadow:0 0 17px rgba(192,86,255,.85)}
+.css-copy p{margin:12px 0 0;font-family:"Cormorant Garamond",serif;font-size:clamp(18px,4.1vw,28px);font-weight:500;color:#f0e2f5}
+.css-copy p+p{margin-top:1px}
+.welcome-divider{margin:16px auto 0;color:#f0baff;font-size:20px;display:flex;align-items:center;justify-content:center;gap:42px}
+.welcome-divider:before,.welcome-divider:after{content:"";width:70px;height:1px;background:linear-gradient(90deg,transparent,rgba(238,188,255,.75),transparent)}
+#welcome .enter-hotspot{position:absolute;z-index:11;left:50%;top:auto;bottom:6.8%;transform:translateX(-50%);width:58%;height:7.2%;display:flex;align-items:center;justify-content:center;gap:13px;border:1px solid rgba(255,218,255,.55);border-radius:999px;background:linear-gradient(180deg,rgba(213,139,255,.22),rgba(122,46,163,.17));box-shadow:inset 0 0 18px rgba(255,255,255,.07),0 0 22px rgba(193,98,255,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff3ff;font-family:"Cormorant Garamond",serif;font-size:clamp(21px,4.5vw,32px);font-weight:600;cursor:pointer;transition:transform .25s ease,background .25s ease,box-shadow .25s ease}
+#welcome .enter-hotspot:hover{transform:translateX(-50%) translateY(-2px);background:linear-gradient(180deg,rgba(223,156,255,.28),rgba(122,46,163,.22));box-shadow:inset 0 0 18px rgba(255,255,255,.08),0 0 30px rgba(193,98,255,.48)}
+#welcome .enter-hotspot b{font-family:Inter,sans-serif;font-size:28px;font-weight:400;color:#edcaff}.button-door-icon{font-size:25px;color:#f3dfff;line-height:1}
+#welcome .door-hotspot:focus-visible,#welcome .enter-hotspot:focus-visible{outline:2px solid rgba(255,225,255,.9);outline-offset:4px}
+@media(max-width:760px){
+  .welcome-moon{width:68px;height:68px}.welcome-door-area{top:18.5%;width:61%;height:49%}.css-copy{top:67.5%}.css-copy p{margin-top:10px}.welcome-divider{margin-top:12px}.welcome-divider:before,.welcome-divider:after{width:45px}.welcome-foreground-flower{font-size:72px}.ff-right{font-size:80px}#welcome .enter-hotspot{width:62%;bottom:6%;height:7.4%;font-size:22px}
+}
+@media(max-width:400px){.welcome-moon{width:58px;height:58px}.welcome-door-area{top:18%;height:49%;width:64%}.css-copy{top:67%}.css-copy h1{font-size:39px}.css-copy p{font-size:17px}.welcome-divider{margin-top:8px}.welcome-divider:before,.welcome-divider:after{width:30px}.welcome-foreground-flower{font-size:58px}.ff-right{font-size:65px}#welcome .enter-hotspot{width:67%;height:7%;font-size:20px;gap:9px}.button-door-icon{font-size:20px}}
+@media(min-width:900px){.welcome-scene{width:min(68vh,820px);height:min(100vh,1230px)}}
+@media(max-aspect-ratio:9/16){.welcome-scene{width:100vw;height:150vw}}

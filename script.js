@@ -250,7 +250,7 @@ function loadChapter(i){
   });
   $("#secretArea").classList.add("hidden");
   updateProgress();
-  stars($("#stars"),i===4?120:75);petals(i+3);
+  stars($("#stars"),i===4?55:32);petals(Math.min(5,i+2));
 }
 function openGift(n,b){
   if(b.classList.contains("opened")){toast("Ye gift already open ho chuka hai ✦");return}
@@ -387,7 +387,7 @@ function playFinalMoment(){
 
 function next(){
   if(chapterIndex<4){loadChapter(chapterIndex+1);show("chapter")}
-  else{playFinalMoment();show("final");stars($("#finalStars"),130);petals(28)}
+  else{playFinalMoment();show("final");stars($("#finalStars"),55);petals(8)}
 }
 function toast(t){const x=$("#toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1800)}
 
@@ -406,4 +406,4 @@ $("#codeInput").addEventListener("keydown",e=>{if(e.key==="Enter")unlock()});
 $("#continueBtn").addEventListener("click",next);
 $("#replayBtn").addEventListener("click",()=>{const a=$("#finalMusic");a.pause();a.currentTime=0;loadChapter(0);show("chapter")});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#giftModal").classList.add("hidden")});
-stars($("#stars"),90);petals(20);
+stars($("#stars"),32);petals(5);
