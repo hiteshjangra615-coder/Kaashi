@@ -135,15 +135,18 @@ function show(name){
     });
     next.classList.remove("hidden");
     next.classList.add("active");
+
+    // Let the new screen paint first, then perform one smooth scroll.
+    // This avoids competing layout/paint work during the chapter transition.
     requestAnimationFrame(()=>{
-      window.scrollTo({top:0,behavior:"smooth"});
+      requestAnimationFrame(()=>window.scrollTo({top:0,behavior:"smooth"}));
     });
     screenTransitionTimer=null;
   };
 
   if(current){
     current.classList.add("screen-leaving");
-    screenTransitionTimer=setTimeout(finish,300);
+    screenTransitionTimer=setTimeout(finish,340);
   }else{
     finish();
   }

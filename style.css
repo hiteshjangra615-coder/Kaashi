@@ -799,3 +799,48 @@ button{
 .enter-hint:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent,rgba(255,255,255,.3),transparent);transform:translateX(-120%);animation:buttonSweep 3.5s ease-in-out infinite}
 @keyframes buttonSweep{55%,100%{transform:translateX(120%)}}
 @media(max-width:760px){#door{width:196px;height:292px}.door-scene{height:390px}.welcome-moon{width:90px;height:90px;right:5%;top:4%}.sunflower{font-size:40px}.s1{left:2%}.s2{right:2%}}
+
+/* === PERFORMANCE-SAFE SMOOTHNESS LAYER ===
+   Visual/content layout stays unchanged; this only reduces scroll/animation paint cost. */
+.screen{
+  will-change:auto;
+  contain:layout paint;
+}
+.screen.active,.screen.screen-leaving{
+  will-change:opacity,transform;
+}
+.gift{
+  will-change:auto;
+  contain:layout paint;
+  content-visibility:auto;
+  contain-intrinsic-size:88px;
+}
+.gift.opening{
+  will-change:transform,opacity;
+}
+.gift-card{
+  contain:layout paint;
+  backface-visibility:hidden;
+}
+.modal-backdrop{
+  will-change:opacity;
+  backface-visibility:hidden;
+}
+#giftFx,.gift-fx-particle,.gift-fx-special{
+  backface-visibility:hidden;
+  transform:translateZ(0);
+}
+@media (max-width:760px){
+  /* Smaller blur radius keeps the same glass look while making touch scrolling lighter. */
+  .gift{
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+  }
+  .gift-grid{
+    contain:layout paint;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .screen,.screen.active,.screen.screen-leaving,.gift,.gift.opening{will-change:auto!important;}
+}
+
