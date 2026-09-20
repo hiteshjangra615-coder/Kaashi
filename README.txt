@@ -22,3 +22,5 @@ Updated build notes:
 - Screen transitions, taps, door opening and scrolling were smoothed.
 - `kuch-iss-tarah.mp3` is included at the repository root and wired to the final moment.
 - Upload/replace the files in the repository root; do not put the MP3 inside an assets folder.
+
+Reference-style door update: rectangular outer frame, slightly rounded inner door leaf, stronger side glow, glass sweep, and visible floor reflection. Existing chapters/effects retained.
