@@ -19,48 +19,23 @@
   <div class="petals" id="petals"></div>
 
   <main>
-    <section id="welcome" class="screen active css-welcome">
-      <div class="welcome-scene" aria-label="A purple moonlit surprise door for Kaashi">
-        <div class="welcome-sky-glow"></div>
-        <div class="welcome-cloud cloud-left"></div>
-        <div class="welcome-cloud cloud-right"></div>
-        <div class="welcome-moon"><span></span></div>
-        <div class="welcome-shooting-star ss1"></div>
-        <div class="welcome-shooting-star ss2"></div>
-
-        <div class="welcome-door-area">
-          <div class="door-halo"></div>
-          <button id="door" class="door-hotspot" aria-label="Open the purple door">
-            <span class="door-frame">
-              <span class="door-inner-glow"></span>
-              <span class="door-arch"></span>
-              <span class="door-ornament">✦</span>
-              <span class="door-knob"></span>
-              <span class="door-light"></span>
-            </span>
-          </button>
-          <div class="vine vine-left"><span>🌻</span><i></i><b></b></div>
-          <div class="vine vine-right"><span>🌻</span><i></i><b></b></div>
-          <span class="butterfly butterfly-left">✦</span>
-          <span class="butterfly butterfly-right">✦</span>
-        </div>
-
-        <div class="welcome-reflection"></div>
-        <div class="welcome-foreground-flower ff-left">🌻</div>
-        <div class="welcome-foreground-flower ff-right">🌻</div>
-
-        <div class="welcome-copy css-copy">
-          <h1>Hi Kaashi <span>💜</span></h1>
-          <p>A little surprise journey awaits you...</p>
-          <p>Hope you enjoy it 🌻</p>
-          <div class="welcome-divider">✦</div>
-        </div>
-
-        <button id="openJourney" class="enter-hotspot" aria-label="Open the surprise journey">
-          <span class="button-door-icon">▯</span>
-          <span>Open the door</span>
-          <b>→</b>
+    <section id="welcome" class="screen active">
+      <div class="door-scene">
+        <div class="sunflower s1">🌻</div>
+        <div class="sunflower s2">🌻</div>
+        <button id="door" aria-label="Open the purple door">
+          <span class="door-glow"></span>
+          <span class="door-panel">
+            <span class="door-arch"></span>
+            <span class="door-handle"></span>
+          </span>
         </button>
+      </div>
+      <div class="welcome-copy">
+        <p>Hi Kaashi 💜</p>
+        <p>Aapke liye ek chhoti si surprise journey hai…</p>
+        <p>hope aapko pasand aaye. 🌻</p>
+        <button class="enter-hint" id="openJourney">Open the door</button>
       </div>
     </section>
 
@@ -152,7 +127,7 @@
   </div>
 
   <div id="toast" class="toast"></div>
-  <audio id="finalMusic" preload="none" loop></audio>
+  <audio id="finalMusic" preload="metadata" loop src="kuch-iss-tarah.mp3"></audio>
 </div>
 <script src="script.js"></script>
 </body>

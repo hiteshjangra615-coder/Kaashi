@@ -120,16 +120,37 @@ const $=s=>document.querySelector(s);
 const screens={welcome:$("#welcome"),chapter:$("#chapter"),puzzle:$("#puzzle"),reveal:$("#reveal"),final:$("#final")};
 let chapterIndex=0, opened=0, activePuzzle=null, transitionTimer=null;
 
+let screenTransitionTimer=null;
 function show(name){
-  Object.values(screens).forEach(s=>{
-    s.classList.remove("active");
-    s.classList.add("hidden");
-  });
-  screens[name].classList.remove("hidden");
-  screens[name].classList.add("active");
-  window.scrollTo({top:0,behavior:"auto"});
+  const next=screens[name];
+  const current=Object.values(screens).find(s=>s.classList.contains("active"));
+  if(current===next) return;
+
+  if(screenTransitionTimer) clearTimeout(screenTransitionTimer);
+
+  const finish=()=>{
+    Object.values(screens).forEach(s=>{
+      s.classList.remove("active","screen-leaving");
+      s.classList.add("hidden");
+    });
+    next.classList.remove("hidden");
+    next.classList.add("active");
+    requestAnimationFrame(()=>{
+      window.scrollTo({top:0,behavior:"smooth"});
+    });
+    screenTransitionTimer=null;
+  };
+
+  if(current){
+    current.classList.add("screen-leaving");
+    screenTransitionTimer=setTimeout(finish,300);
+  }else{
+    finish();
+  }
 }
 function stars(container,count=90){
+  const compact=window.matchMedia("(max-width:760px)").matches;
+  count=compact ? Math.min(count,70) : count;
   container.innerHTML="";
   for(let i=0;i<count;i++){
     const s=document.createElement("i");s.className="star";
@@ -140,6 +161,8 @@ function stars(container,count=90){
   }
 }
 function petals(count=18){
+  const compact=window.matchMedia("(max-width:760px)").matches;
+  count=compact ? Math.min(count,16) : count;
   const p=$("#petals");p.innerHTML="";
   for(let i=0;i<count;i++){
     const e=document.createElement("span");e.textContent="✦";e.style.position="absolute";
@@ -250,7 +273,7 @@ function loadChapter(i){
   });
   $("#secretArea").classList.add("hidden");
   updateProgress();
-  stars($("#stars"),i===4?55:32);petals(Math.min(5,i+2));
+  requestAnimationFrame(()=>{stars($("#stars"),i===4?120:75);petals(i+3);});
 }
 function openGift(n,b){
   if(b.classList.contains("opened")){toast("Ye gift already open ho chuka hai ✦");return}
@@ -387,14 +410,19 @@ function playFinalMoment(){
 
 function next(){
   if(chapterIndex<4){loadChapter(chapterIndex+1);show("chapter")}
-  else{playFinalMoment();show("final");stars($("#finalStars"),55);petals(8)}
+  else{playFinalMoment();show("final");requestAnimationFrame(()=>{stars($("#finalStars"),130);petals(28);})}
 }
 function toast(t){const x=$("#toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1800)}
 
 $("#door").addEventListener("click",()=>{
-  $("#door").style.transform="scale(1.04)";$("#door").style.opacity="0";
-  document.body.animate([{filter:"brightness(1)"},{filter:"brightness(1.35)"},{filter:"brightness(1)"}],1000);
-  setTimeout(()=>{loadChapter(0);show("chapter")},800);
+  $("#door").style.transform="scale(1.035)";
+  $("#door").style.opacity="0";
+  $("#door").style.filter="drop-shadow(0 0 42px rgba(220,145,255,.72))";
+  document.body.animate(
+    [{filter:"brightness(1)"},{filter:"brightness(1.24)"},{filter:"brightness(1)"}],
+    {duration:760,easing:"ease-in-out"}
+  );
+  setTimeout(()=>{loadChapter(0);show("chapter")},520);
 });
 $("#openJourney").addEventListener("click",()=>$("#door").click());
 $("#closeModal").addEventListener("click",()=>$("#giftModal").classList.add("hidden"));
@@ -406,4 +434,4 @@ $("#codeInput").addEventListener("keydown",e=>{if(e.key==="Enter")unlock()});
 $("#continueBtn").addEventListener("click",next);
 $("#replayBtn").addEventListener("click",()=>{const a=$("#finalMusic");a.pause();a.currentTime=0;loadChapter(0);show("chapter")});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#giftModal").classList.add("hidden")});
-stars($("#stars"),32);petals(5);
+stars($("#stars"),90);petals(20);
