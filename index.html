@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#18051f">
+<title>For Kaashi 💜</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div class="sky"></div>
+  <div class="moon"></div>
+  <div class="stars" id="stars"></div>
+  <div class="mist mist-a"></div><div class="mist mist-b"></div>
+  <div class="petals" id="petals"></div>
+
+  <main>
+    <section id="welcome" class="screen active">
+      <div class="door-scene">
+        <div class="sunflower s1">🌻</div>
+        <div class="sunflower s2">🌻</div>
+        <button id="door" aria-label="Open the purple door">
+          <span class="door-glow"></span>
+          <span class="door-panel">
+            <span class="door-arch"></span>
+            <span class="door-handle"></span>
+          </span>
+        </button>
+      </div>
+      <div class="welcome-copy">
+        <p>Hi Kaashi 💜</p>
+        <p>Aapke liye ek chhoti si surprise journey hai…</p>
+        <p>hope aapko pasand aaye. 🌻</p>
+        <button class="enter-hint" id="openJourney">Open the door</button>
+      </div>
+    </section>
+
+    <section id="chapter" class="screen hidden">
+      <header class="chapter-head">
+        <div class="chapter-kicker" id="chapterKicker">CHAPTER 1</div>
+        <h1 id="chapterTitle">The First Room</h1>
+        <p id="chapterSub">A few little things, waiting to be found.</p>
+      </header>
+
+      <div class="room" id="room">
+        <div class="orb orb1"></div><div class="orb orb2"></div>
+        <div class="garden" id="garden"></div>
+        <div class="gift-grid" id="giftGrid"></div>
+      </div>
+
+      <div class="progress-wrap">
+        <span id="progressText">0 / 15 opened</span>
+        <div class="progress"><span id="progressBar"></span></div>
+      </div>
+
+      <div id="secretArea" class="secret-area hidden">
+        <button id="secretDoor" class="secret-door">✦</button>
+        <p class="secret-label">A quiet little door appeared.</p>
+      </div>
+    </section>
+
+    <section id="puzzle" class="screen hidden">
+      <div class="puzzle-card">
+        <div class="puzzle-symbol">✦</div>
+        <div class="chapter-kicker" id="puzzleKicker">A LITTLE SECRET</div>
+        <h2 id="question"></h2>
+        <div class="hints" id="hints"></div>
+        <div class="code-row">
+          <input id="codeInput" maxlength="18" autocomplete="off" placeholder="Enter the answer">
+          <button id="unlockBtn">Unlock</button>
+        </div>
+        <p class="puzzle-note">Four small hints are there if you need them.</p>
+        <p id="puzzleMessage" class="puzzle-message"></p>
+      </div>
+    </section>
+
+    <section id="reveal" class="screen hidden">
+      <div class="reveal-card">
+        <div class="bloom" id="bloom">🌻</div>
+        <div class="chapter-kicker">UNLOCKED</div>
+        <h2 id="revealTitle">A little reminder</h2>
+        <p id="revealText"></p>
+        <button id="continueBtn" class="continue">Continue ✦</button>
+      </div>
+    </section>
+
+    <section id="final" class="screen hidden">
+      <div class="final-stars" id="finalStars"></div>
+      <div class="final-sunflower">🌻</div>
+      <div class="final-card">
+        <div class="chapter-kicker">ONE LAST LITTLE THING</div>
+        <h2>Aapka khayal bhi important hai. 💜</h2>
+        <p>
+          Apni health ko ignore mat kijiye. Thoda rest, paani, proper khana
+          aur apne liye thoda sukoon — ye sab bhi important hai.
+        </p>
+        <p>
+          Har din perfect hona zaroori nahi. Agar kabhi cheezein difficult
+          lagen, toh ek step at a time lena bilkul okay hai.
+        </p>
+        <p>
+          Aur haan… aapki smile, aapka kind nature aur jis tarah aap
+          positivity spread karti hain — ye chhoti qualities nahi hain. 🌻
+        </p>
+        <div class="final-line">Aap jaisi hain, waise hi genuinely special hain.</div>
+        <button id="replayBtn" class="continue">Replay the journey ✦</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="giftModal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <article class="gift-card">
+      <button class="close" id="closeModal" aria-label="Close">×</button>
+      <div class="gift-icon" id="giftIcon">✦</div>
+      <div class="mini-tag" id="giftTag">A LITTLE NOTE</div>
+      <h2 id="giftTitle"></h2>
+      <p id="giftText"></p>
+      <div id="giftFx" aria-hidden="true"></div>
+      <div id="giftVisual"></div>
+      <button class="continue" id="modalDone">Lovely ✦</button>
+    </article>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <audio id="finalMusic" preload="none" loop></audio>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
